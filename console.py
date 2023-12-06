@@ -9,6 +9,7 @@ import re
 import ast
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -18,6 +19,8 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes_valid = {
         "BaseModel",
+        "User",
+        
     }
 
     def emptyline(self) -> bool:
@@ -144,6 +147,6 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 setattr(obj, attr_name, attr_value)
                 obj.save()
-                
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

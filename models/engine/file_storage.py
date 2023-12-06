@@ -3,6 +3,7 @@
 Module for serialize and deserialize data(dict <-> json)
 """
 from models.base_model import BaseModel
+from models.user import User
 import json
 import os
 
