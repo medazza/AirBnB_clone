@@ -17,6 +17,39 @@ from models.review import Review
 from models.state import State
 from models.city import City
 
+def curly_braces_split(e_arg):
+    """
+    Splits the curly braces for the update method
+    """
+    curly_braces = re.search(r"\{(.*?)\}", e_arg)
+
+    if curly_braces:
+        id_with_comma = shlex.split(e_arg[:curly_braces.span()[0]])
+        id = [i.strip(",") for i in id_with_comma][0]
+
+        str_data = curly_braces.group(1)
+        try:
+            arg_dict = ast.literal_eval("{" + str_data + "}")
+        except Exception:
+            print("**  invalid dictionary format **")
+            return
+        return id, arg_dict
+    else:
+        commands = e_arg.split(",")
+        if commands:
+            try:
+                id = commands[0]
+            except Exception:
+                return "", ""
+            try:
+                attr_name = commands[1]
+            except Exception:
+                return id, ""
+            try:
+                attr_value = commands[2]
+            except Exception:
+                return id, attr_name
+            return f"{id}", f"{attr_name} {attr_value}"
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -150,6 +183,70 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 setattr(obj, attr_name, attr_value)
                 obj.save()
+
+    def default(self, arg):
+        """
+        Default behavior for cmd module when input is invalid
+        overrided.
+        """
+        # User.all() => ['User, 'all()']
+        arg_list = arg.split('.')
+        # incoming class name => User
+        class_nm = arg_list[0]
+        # all() => ['all', ') xxxxx']
+        cmnd = arg_list[1].split('(')
+        # incoming command method => all
+        cmd_method = cmnd[0]
+        # show User id => id extra arg
+        e_arg = cmnd[1].split(')')[0]  # extra arguments
+        method_dict = {
+                'all': self.do_all,
+                'show': self.do_show,
+                'destroy': self.do_destroy,
+                'update': self.do_update,
+                'count': self.do_count
+                }
+
+        if cmd_method in method_dict.keys():
+            if cmd_method != "update":
+                return method_dict[cmd_method]("{} {}".format(class_nm, e_arg))
+            else:
+                if not class_nm:
+                    print("** class name missing **")
+                    return
+                try:
+                    obj_id, arg_dict = curly_braces_split(e_arg)
+                except Exception:
+                    pass
+                try:
+                    call = method_dict[cmd_method]
+                    return call("{} {} {}".format(class_nm, obj_id, arg_dict))
+                except Exception:
+                    pass
+        else:
+            print("*** Unknown syntax: {}".format(arg))
+            return False
+    def do_count(self, arg):
+        """
+        Retrieve the number of instances of a class:
+        <class name>.count()
+        """
+        objs = storage.all()
+        cmnds = shlex.split(arg)
+        if arg:
+            class_nm = cmnds[0]
+        count = 0
+        if cmnds:
+            if class_nm in HBNBCommand.__classes_valid:
+                for obj in objs.values():
+                    if obj.__class__.__name__ == class_nm:
+                        count += 1
+                print(count)
+            else:
+                print("** invalid class name **")
+        else:
+            print("** class name missing **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
