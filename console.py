@@ -10,6 +10,12 @@ import ast
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.city import City
 
 
 class HBNBCommand(cmd.Cmd):
@@ -17,11 +23,8 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand console class
     """
     prompt = "(hbnb) "
-    __classes_valid = {
-        "BaseModel",
-        "User",
-        
-    }
+    __classes_valid = ["BaseModel","User","Amenity",
+                            "Place","Review","State","City"]
 
     def emptyline(self) -> bool:
         """ Do nothing when emty line entered """
