@@ -4,6 +4,7 @@ Module for console
 the entry point of the command interpreter
 """
 import cmd
+import sys
 import shlex
 import re
 import ast
@@ -280,4 +281,8 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    import sys
+    if len(sys.argv) > 1:
+        HBNBCommand().onecmd(' '.join(sys.argv[1:]))
+    else:
+        HBNBCommand().cmdloop()
