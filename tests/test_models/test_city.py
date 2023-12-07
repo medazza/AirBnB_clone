@@ -78,7 +78,8 @@ class TestCity_instantiation(unittest.TestCase):
     def test_instantiation_with_kwargs(self):
         my_date = datetime.today()
         my_date_iso = my_date.isoformat()
-        my_city = City(id="345", created_at=my_date_iso, updated_at=my_date_iso)
+        my_city = City(id="345", created_at=my_date_iso,
+                       updated_at=my_date_iso)
         self.assertEqual(my_city.id, "345")
         self.assertEqual(my_city.created_at, my_date)
         self.assertEqual(my_city.updated_at, my_date)

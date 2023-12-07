@@ -17,6 +17,7 @@ from models.review import Review
 from models.state import State
 from models.city import City
 
+
 def curly_braces_split(extra_arg):
     """
     Splits the curly braces for the update method
@@ -52,13 +53,14 @@ def curly_braces_split(extra_arg):
                 return id, attr_name
             return f"{id}", f"{attr_name} {attr_value}"
 
+
 class HBNBCommand(cmd.Cmd):
     """
     HBNBCommand console class
     """
     prompt = "(hbnb) "
-    __classes_valid = ["BaseModel","User","Amenity",
-                            "Place","Review","State","City"]
+    __classes_valid = ["BaseModel", "User", "Amenity",
+                       "Place", "Review", "State", "City"]
 
     def emptyline(self) -> bool:
         """ Do nothing when emty line entered """
@@ -68,13 +70,13 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program
         """
         return True
-    
+
     def do_EOF(self, arg):
         """
         EOF or Ctrl+D signal to exit the program.
         """
         return True
-    
+
     def do_create(self, arg):
         """
         Creates a new instance of BaseModel
@@ -93,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Prints the string representation of an instance 
+        Prints the string representation of an instance
         based on the class name and id.
         """
         cmnds = shlex.split(arg)
@@ -114,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """
-        Deletes an instance based on the class name and 
+        Deletes an instance based on the class name and
         id (save the change into the JSON file).
         """
         cmnds = shlex.split(arg)
@@ -136,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-        Prints all string representation of all 
+        Prints all string representation of all
         instances based or not on the class name.
         """
         objs = storage.all()
@@ -150,12 +152,12 @@ class HBNBCommand(cmd.Cmd):
             for k, v in objs.items():
                 if k.split('.')[0] == cmnds[0]:
                     print(str(v))
-    
+
     def do_update(self, arg):
         """
-        Updates an instance based on the class name 
-        and id by adding or updating attribute 
-        (save the change into the JSON file). 
+        Updates an instance based on the class name
+        and id by adding or updating attribute
+        (save the change into the JSON file).
         Update "<attribute_value>"
         """
         cmnds = shlex.split(arg)
@@ -223,7 +225,7 @@ class HBNBCommand(cmd.Cmd):
         cmnd = arg_list[1].split('(')
         # incoming command method => 'show'
         cmd_method = cmnd[0]
-        # show User id => id extra arg or '"id" , {'first_name': "John", "age": 89}'
+        # show User id => id or '"id" , {'first_name': "John", "age": 89}'
         extra_arg = cmnd[1].split(')')[0]  # extra arguments (id)
         method_dict = {
                 'all': self.do_all,
@@ -235,7 +237,7 @@ class HBNBCommand(cmd.Cmd):
 
         if cmd_method in method_dict.keys():
             if cmd_method != "update":
-                return method_dict[cmd_method]("{} {}".format(class_nm, 
+                return method_dict[cmd_method]("{} {}".format(class_nm,
                                                               extra_arg))
             else:
                 if not class_nm:
@@ -247,13 +249,14 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 try:
                     return method_dict[cmd_method]("{} {} {}".format(class_nm,
-                                                                    obj_id, 
-                                                                    arg_dict))
+                                                                     obj_id,
+                                                                     arg_dict))
                 except Exception:
                     pass
         else:
             print("*** Unknown syntax: {}".format(arg))
             return False
+
     def do_count(self, arg):
         """
         Retrieve the number of instances of a class:

@@ -12,9 +12,10 @@ from models.city import City
 import json
 import os
 
+
 class FileStorage():
     """
-    FileStorage class for storing, serialize 
+    FileStorage class for storing, serialize
     and deserialize data
     """
     __file_path = "file.json"
@@ -27,13 +28,11 @@ class FileStorage():
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
-
     def all(self):
         """
         returns the dictionary __objects
         """
-        return  FileStorage.__objects
-
+        return FileStorage.__objects
 
     def save(self):
         """

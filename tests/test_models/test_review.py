@@ -84,7 +84,8 @@ class TestReview_instantiation(unittest.TestCase):
     def test_instantiation_with_kwargs(self):
         my_date = datetime.today()
         my_date_iso = my_date.isoformat()
-        review = Review(id="777", created_at=my_date_iso, updated_at=my_date_iso)
+        review = Review(id="777", created_at=my_date_iso,
+                        updated_at=my_date_iso)
         self.assertEqual(review.id, "777")
         self.assertEqual(review.created_at, my_date)
         self.assertEqual(review.updated_at, my_date)
