@@ -175,13 +175,38 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 obj = objects[key]
-                attr_name = cmnds[2]
-                attr_value = cmnds[3]
-                try:
-                    attr_value = eval(attr_value)
-                except Exception:
-                    pass
-                setattr(obj, attr_name, attr_value)
+                curly_braces = re.search(r"\{(.*?)\}", arg)
+                if curly_braces:
+                    try:
+                        str_data = curly_braces.group(1)
+                        # {'first_name': "John", "age": 89}
+                        arg_dict = ast.literal_eval("{" + str_data + "}")
+                        # ['first_name','age']
+                        attr_names = list(arg_dict.keys())
+                        # ["John", 89]
+                        attr_values = list(arg_dict.values())
+                        try:
+                            attr_name1 = attr_names[0]
+                            attr_value1 = attr_values[0]
+                            setattr(obj, attr_name1, attr_value1)
+                        except Exception:
+                            pass
+                        try:
+                            attr_name2 = attr_names[1]
+                            attr_value2 = attr_values[1]
+                            setattr(obj, attr_name2, attr_value2)
+                        except Exception:
+                            pass
+                    except Exception:
+                        pass
+                else:
+                    attr_name = cmnds[2]
+                    attr_value = cmnds[3]
+                    try:
+                        attr_value = eval(attr_value)
+                    except Exception:
+                        pass
+                    setattr(obj, attr_name, attr_value)
                 obj.save()
 
     def default(self, arg):
