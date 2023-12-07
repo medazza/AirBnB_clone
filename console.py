@@ -20,13 +20,14 @@ from models.city import City
 def curly_braces_split(extra_arg):
     """
     Splits the curly braces for the update method
+    extra_arg ' 2753-4d42", 'first_name', "John" '
+    extra_arg ' "2753-4d42", {'first_name': "John", "age": 89} '
     """
     curly_braces = re.search(r"\{(.*?)\}", extra_arg)
 
     if curly_braces:
         id_with_comma = shlex.split(extra_arg[:curly_braces.span()[0]])
         id = [i.strip(",") for i in id_with_comma][0]
-
         str_data = curly_braces.group(1)
         try:
             arg_dict = ast.literal_eval("{" + str_data + "}")
@@ -222,7 +223,7 @@ class HBNBCommand(cmd.Cmd):
         cmnd = arg_list[1].split('(')
         # incoming command method => 'show'
         cmd_method = cmnd[0]
-        # show User id => id extra arg
+        # show User id => id extra arg or '"id" , {'first_name': "John", "age": 89}'
         extra_arg = cmnd[1].split(')')[0]  # extra arguments (id)
         method_dict = {
                 'all': self.do_all,
