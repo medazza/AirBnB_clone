@@ -189,16 +189,16 @@ class HBNBCommand(cmd.Cmd):
         Default behavior for cmd module when input is invalid
         overrided.
         """
-        # User.all() => ['User, 'all()']
+        # User.show('id') => ['User, 'show("id")']
         arg_list = arg.split('.')
         # incoming class name => User
         class_nm = arg_list[0]
-        # all() => ['all', ') xxxxx']
+        # show('id') => ['show', '"id")']
         cmnd = arg_list[1].split('(')
-        # incoming command method => all
+        # incoming command method => 'show'
         cmd_method = cmnd[0]
         # show User id => id extra arg
-        e_arg = cmnd[1].split(')')[0]  # extra arguments
+        extra_arg = cmnd[1].split(')')[0]  # extra arguments (id)
         method_dict = {
                 'all': self.do_all,
                 'show': self.do_show,
@@ -209,13 +209,13 @@ class HBNBCommand(cmd.Cmd):
 
         if cmd_method in method_dict.keys():
             if cmd_method != "update":
-                return method_dict[cmd_method]("{} {}".format(class_nm, e_arg))
+                return method_dict[cmd_method]("{} {}".format(class_nm, extra_arg))
             else:
                 if not class_nm:
                     print("** class name missing **")
                     return
                 try:
-                    obj_id, arg_dict = curly_braces_split(e_arg)
+                    obj_id, arg_dict = curly_braces_split(extra_arg)
                 except Exception:
                     pass
                 try:
