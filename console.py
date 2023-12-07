@@ -17,14 +17,14 @@ from models.review import Review
 from models.state import State
 from models.city import City
 
-def curly_braces_split(e_arg):
+def curly_braces_split(extra_arg):
     """
     Splits the curly braces for the update method
     """
-    curly_braces = re.search(r"\{(.*?)\}", e_arg)
+    curly_braces = re.search(r"\{(.*?)\}", extra_arg)
 
     if curly_braces:
-        id_with_comma = shlex.split(e_arg[:curly_braces.span()[0]])
+        id_with_comma = shlex.split(extra_arg[:curly_braces.span()[0]])
         id = [i.strip(",") for i in id_with_comma][0]
 
         str_data = curly_braces.group(1)
@@ -35,7 +35,7 @@ def curly_braces_split(e_arg):
             return
         return id, arg_dict
     else:
-        commands = e_arg.split(",")
+        commands = extra_arg.split(",")
         if commands:
             try:
                 id = commands[0]
@@ -209,7 +209,8 @@ class HBNBCommand(cmd.Cmd):
 
         if cmd_method in method_dict.keys():
             if cmd_method != "update":
-                return method_dict[cmd_method]("{} {}".format(class_nm, extra_arg))
+                return method_dict[cmd_method]("{} {}".format(class_nm, 
+                                                              extra_arg))
             else:
                 if not class_nm:
                     print("** class name missing **")
@@ -219,8 +220,9 @@ class HBNBCommand(cmd.Cmd):
                 except Exception:
                     pass
                 try:
-                    call = method_dict[cmd_method]
-                    return call("{} {} {}".format(class_nm, obj_id, arg_dict))
+                    return method_dict[cmd_method]("{} {} {}".format(class_nm,
+                                                                    obj_id, 
+                                                                    arg_dict))
                 except Exception:
                     pass
         else:
