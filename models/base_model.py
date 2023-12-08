@@ -10,7 +10,7 @@ import models
 class BaseModel():
     """
     class BaseModel that defines all common
-    attributes/methods for other classes:
+    attributes and methods for other classes:
     """
     def __init__(self, *args, **kwargs):
         """ constructor of the class """
@@ -54,6 +54,7 @@ class BaseModel():
 
     def __str__(self):
         """
+        returns a human readable string
         print: [<class name>] (<self.id>) <self.__dict__>
         """
 

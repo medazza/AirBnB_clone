@@ -56,9 +56,8 @@ def curly_braces_split(extra_arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-    HBNBCommand console class
-    """
+
+    """HBNBCommand console class"""
     prompt = "(hbnb) "
     __classes_valid = ["BaseModel", "User", "Amenity",
                        "Place", "Review", "State", "City"]
@@ -68,8 +67,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_quit(self, arg):
-        """Quit command to exit the program
-        """
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
@@ -215,7 +213,7 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """
-        Default behavior for cmd module when input is invalid
+        The default behavior for cmd module when input is invalid
         overrided.
         """
         # User.show('id') => ['User, 'show("id")']
@@ -260,7 +258,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """
-        Retrieve the number of instances of a class:
+        To retrieve the number of instances of a class:
         <class name>.count()
         """
         objs = storage.all()
