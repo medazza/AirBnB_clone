@@ -279,10 +279,16 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
+    def precmd(self, line):
+        if not sys.stdin.isatty():
+            print()
+        return line
+
+    def postcmd(self, stop, line):
+        if not sys.stdin.isatty():
+            return True
+        return stop
+
 
 if __name__ == '__main__':
-    import sys
-    if len(sys.argv) > 1:
-        HBNBCommand().onecmd(' '.join(sys.argv[1:]))
-    else:
-        HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
