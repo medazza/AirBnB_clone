@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * === Global style ===
  */
@@ -16,3 +17,25 @@ body{
     margin-top: 30px;
     margin-bottom: 30px;
 }
+=======
+body {
+    margin: 0px;
+    padding: 0px;
+    color: #484848;
+    font-size: 14px;
+    font-family: Circular, Helvetica Neue, Helvetica, Arial, sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1000px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+>>>>>>> f6c79e28f676ee9e101f6a84d5493c9524eb1e22

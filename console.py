@@ -63,23 +63,21 @@ class HBNBCommand(cmd.Cmd):
                        "Place", "Review", "State", "City"]
 
     def emptyline(self) -> bool:
-        """ Do nothing when emty line entered """
+        """Do nothing when emty line entered\n"""
         pass
 
     def do_quit(self, arg):
-        """Quit command to exit the program"""
+        """Quit command to exit the program\n"""
         return True
 
     def do_EOF(self, arg):
-        """
-        EOF or Ctrl+D signal to exit the program.
-        """
+        """EOF or Ctrl+D signal to exit the program.\n"""
         return True
 
     def do_create(self, arg):
         """
         Creates a new instance of BaseModel
-        saves it (to the JSON file) and prints the id
+        saves it (to the JSON file) and prints the id\n
         """
         cmnds = shlex.split(arg)
 
@@ -95,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, arg):
         """
         Prints the string representation of an instance
-        based on the class name and id.
+        based on the class name and id.\n
         """
         cmnds = shlex.split(arg)
 
@@ -116,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, arg):
         """
         Deletes an instance based on the class name and
-        id (save the change into the JSON file).
+        id (save the change into the JSON file).\n
         """
         cmnds = shlex.split(arg)
 
@@ -138,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """
         Prints all string representation of all
-        instances based or not on the class name.
+        instances based or not on the class name.\n
         """
         objs = storage.all()
         cmnds = shlex.split(arg)
@@ -157,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on the class name
         and id by adding or updating attribute
         (save the change into the JSON file).
-        Update "<attribute_value>"
+        Update "<attribute_value>\n"
         """
         cmnds = shlex.split(arg)
         if len(cmnds) == 0:
@@ -214,7 +212,7 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         """
         The default behavior for cmd module when input is invalid
-        overrided.
+        overrided.\n
         """
         # User.show('id') => ['User, 'show("id")']
         arg_list = arg.split('.')
@@ -259,7 +257,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, arg):
         """
         To retrieve the number of instances of a class:
-        <class name>.count()
+        <class name>.count()\n
         """
         objs = storage.all()
         cmnds = shlex.split(arg)

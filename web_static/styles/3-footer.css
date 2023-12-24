@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * === Footer style ===
  */
@@ -13,3 +14,17 @@ footer{
     text-align:center;
     line-height:60px;
 }
+=======
+footer {
+    background-color: white;
+    height: 60px;
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: auto;
+}
+>>>>>>> f6c79e28f676ee9e101f6a84d5493c9524eb1e22
