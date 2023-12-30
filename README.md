@@ -31,7 +31,7 @@ To start the Airbnb Console Application, follow these steps:
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/ugwujustine/AirBnB_clone.git
+   git clone https://github.com/medazza/AirBnB_clone.git
    ```
 
 2. Change your current directory to the project folder:
