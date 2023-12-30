@@ -96,3 +96,6 @@ Here are some examples of how to use the Airbnb Console Application:
   ```bash
   (hbnb) update User <instance_id> {"email": "new_email@example.com", "first_name": "Gift"}
   ```
+
+## Author 🖊️:
+* **AZZA MOHAMED** [AZZA](https://github.com/medazza)- ALX-Africa SE Student cohort 17
